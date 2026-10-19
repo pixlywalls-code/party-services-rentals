@@ -578,16 +578,23 @@ export default function HomePage() {
         <section id="drinks" className="drinks-section section-pad">
           <div className="wrap">
             <SectionHeading eyebrow="THE DRINKS ARE ON US" title="Book a " accent="happy meeting." subtitle="A playful nod to the original site's coffee-first personality. Pick your preferred drink to make it yours." />
-            <div className="drinks-grid">
-              {drinks.map(({name,image}) => (
-                <button type="button" aria-pressed={selectedDrink === name} key={name}
-                  onClick={() => setSelectedDrink(name)}
-                  className={selectedDrink === name ? "drink-choice selected" : "drink-choice"}>
-                  <img src={ASSET_ROOT + image} alt="" loading="lazy" />
-                  <strong>{name}</strong>
-                  {selectedDrink === name && <span className="drink-tick"><Check size={12} /></span>}
-                </button>
-              ))}
+            <div className="drinks-marquee" aria-label="Choose your drink">
+              <div className="drinks-marquee-track">
+                {[0, 1].map((copy) => (
+                  <div className="drinks-marquee-set" key={copy} aria-hidden={copy === 1}>
+                    {drinks.map(({name,image}) => (
+                      <button type="button" aria-pressed={selectedDrink === name} key={name}
+                        tabIndex={copy === 1 ? -1 : 0}
+                        onClick={() => setSelectedDrink(name)}
+                        className={selectedDrink === name ? "drink-choice selected" : "drink-choice"}>
+                        <img src={ASSET_ROOT + image} alt="" loading="lazy" />
+                        <strong>{name}</strong>
+                        {selectedDrink === name && <span className="drink-tick"><Check size={12} /></span>}
+                      </button>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
             <p className="drinks-caption">The drinks are on us — in spirit! Selecting a drink in this design demo doesn't place an order.</p>
             <CoffeeButton href="#contact">LET'S TALK OVER {selectedDrink.toUpperCase()}</CoffeeButton>
