@@ -13,7 +13,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Giant games & competitive challenges",
     "tagline": "Big games, bigger laughs",
     "intro": "Turn a ballroom foyer into a playful arena for teams and friends.",
-    "image": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=760&q=80",
+    "image": "https://images.pexels.com/photos/6364227/pexels-photo-6364227.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 1,
@@ -73,7 +73,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Carnival games & ridiculous challenges",
     "tagline": "Step right up",
     "intro": "Fairground-style competition, prizes and unapologetic fun.",
-    "image": null,
+    "image": "https://images.pexels.com/photos/38778503/pexels-photo-38778503.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 11,
