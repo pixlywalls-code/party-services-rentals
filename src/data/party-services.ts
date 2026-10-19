@@ -73,7 +73,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Carnival games & ridiculous challenges",
     "tagline": "Step right up",
     "intro": "Fairground-style competition, prizes and unapologetic fun.",
-    "image": "https://images.pexels.com/photos/38778503/pexels-photo-38778503.jpeg?auto=compress&cs=tinysrgb&w=820",
+    "image": "https://images.pexels.com/photos/32946058/pexels-photo-32946058.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 11,
@@ -133,7 +133,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Photo, video & social-media experiences",
     "tagline": "Take the spotlight",
     "intro": "Photo-ready moments, creative captures and instant keepsakes.",
-    "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=760&q=80",
+    "image": "https://images.pexels.com/photos/39714852/pexels-photo-39714852.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 21,
@@ -193,7 +193,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Performers & roaming entertainment",
     "tagline": "Unexpected encounters",
     "intro": "Walkaround acts, stage moments and jaw-dropping performances.",
-    "image": null,
+    "image": "https://images.pexels.com/photos/11634143/pexels-photo-11634143.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 31,
@@ -253,7 +253,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Music, dancing & nightclub equipment",
     "tagline": "Turn up the energy",
     "intro": "Build the dance floor experience from headphones to lighting.",
-    "image": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=760&q=80",
+    "image": "https://images.pexels.com/photos/12995470/pexels-photo-12995470.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 41,
@@ -313,7 +313,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Food, drinks & interactive tasting stations",
     "tagline": "A taste of the party",
     "intro": "Interactive bars, dessert experiences and gourmet treats.",
-    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=760&q=80",
+    "image": "https://images.pexels.com/photos/15476290/pexels-photo-15476290.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 51,
@@ -373,7 +373,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Foyer attractions & immersive experiences",
     "tagline": "A spectacular entrance",
     "intro": "Immersive environments and unforgettable foyer discoveries.",
-    "image": null,
+    "image": "https://images.pexels.com/photos/19578001/pexels-photo-19578001.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 61,
@@ -433,7 +433,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Adrenaline, skill & unusual experiences",
     "tagline": "Challenge accepted",
     "intro": "Skill-based games, tech-powered thrills and friendly contests.",
-    "image": null,
+    "image": "https://images.pexels.com/photos/6498302/pexels-photo-6498302.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 71,
@@ -493,7 +493,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Pampering, novelty & adult indulgences",
     "tagline": "A little indulgence",
     "intro": "Personalisation, pampering and playful novelty experiences.",
-    "image": null,
+    "image": "https://images.pexels.com/photos/31234756/pexels-photo-31234756.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 81,
@@ -553,7 +553,7 @@ export const serviceGroups: PartyServiceGroup[] = [
     "title": "Big-ticket attractions & unforgettable spectacles",
     "tagline": "Save the grand finale",
     "intro": "Statement attractions and spectacular event moments.",
-    "image": null,
+    "image": "https://images.pexels.com/photos/38778503/pexels-photo-38778503.jpeg?auto=compress&cs=tinysrgb&w=820",
     "items": [
       {
         "number": 91,
