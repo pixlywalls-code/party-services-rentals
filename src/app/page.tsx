@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, AudioLines, BadgeCheck,
-  Building2, CalendarDays, Camera, Check, CheckCircle2, ChevronDown,
+  Building2, CalendarDays, Camera, Check, CheckCircle2, ChevronDown, Globe2,
   ChevronLeft, ChevronRight, Clock3, Coffee, Copy, Gift, Heart, Mail,
   MapPin, Menu, MicVocal, Package, PartyPopper, Phone, Palette, Send,
   ShieldCheck, Sparkles, Star, Tent, UsersRound, UtensilsCrossed, X,
@@ -41,7 +41,36 @@ const categories: Filter[] = [
   "All services", "Party experiences", "Rentals & equipment", "Corporate events",
 ];
 
-const brandNames = ["P&G", "TalentCorp", "MERCY Malaysia", "celcom", "BOSCH", "dentsu", "Universal Music Group", "YONDER MUSIC", "Tourism Malaysia"];
+const ASSET_ROOT = "https://advertisingandmore.com/wp-content/uploads/2026/07/";
+const brandLogos = [
+  {name:"P&G",src:"old-pg.png"},{name:"TalentCorp",src:"old-talent.png"},
+  {name:"Kementerian Sumber Manusia",src:"old-kemen.png"},{name:"Yonder Music",src:"old-yonder.png"},
+  {name:"Celcom",src:"old-celcom.png"},{name:"AirAsia",src:"old-airasia.png"},
+  {name:"Airbnb",src:"airbnb.png"},{name:"Universal Music Group",src:"old-unilogo.png"},
+  {name:"Warner Music Group",src:"old-warner.png"},{name:"Kinibiz",src:"old-kinibiz.png"},
+  {name:"Yusari Film",src:"old-yusari.png"},{name:"MERCY Malaysia",src:"old-mercylogo.png"},
+  {name:"Asoke Finance",src:"old-asoke.png"},{name:"Mido",src:"old-mido.png"},
+  {name:"Turning Heads",src:"old-turninghead.png"},{name:"Happy Hop",src:"old-happyhop.png"}
+];
+const companyStats = [
+  {number:"12+",caption:"Years in business",icon:CalendarDays},
+  {number:"150+",caption:"Countries advertised in",icon:Globe2},
+  {number:"98%",caption:"Clients return to us",icon:UsersRound},
+  {number:"100%",caption:"Project success rates",icon:BadgeCheck}
+];
+const agencyReviews = [
+  {brand:"LinkedIn Corporation",position:"Regional Account Director, South East Asia",logo:"LI-Logo.png",note:"Recognised the team's work and thanked them for delivering."},
+  {brand:"Bosch",position:"Corporate Communications & Brand Management",logo:"bosch-tc.png",note:"Praised the agency's professionalism and thoughtful digital-media advice."},
+  {brand:"Universal Music Group",position:"Label Manager",logo:"universal-tc.png",note:"Appreciated genuine interest in their business and an open approach."},
+  {brand:"Dentsu",position:"Associate Digital Director",logo:"dentsu-tc.png",note:"Commended the team for outstanding campaign performance."}
+];
+const drinks = [
+  {name:"Coffee",image:"coffee.png"},{name:"Tea",image:"tea.png"},
+  {name:"Beer",image:"beer.png"},{name:"White Wine",image:"whitewine.png"},
+  {name:"Red Wine",image:"redwine.png"},{name:"Whiskey",image:"whiskey.png"},
+  {name:"Gin & Tonic",image:"gintonic.png"},{name:"Martini",image:"martini.png"},
+  {name:"Piña Colada",image:"pinacolada.png"}
+];
 
 const steps = [
   { eyebrow: "WE LISTEN", title: "Tell us your dream.", body: "Your vision, guests, date, venue and the feeling you want to create." },
@@ -96,12 +125,9 @@ const blankEnquiry: Enquiry = {
 };
 
 function BrandCup({ small = false }: { small?: boolean }) {
-  return (
-    <span className={small ? "brand-cup brand-cup-small" : "brand-cup"} aria-hidden="true">
-      <span className="cup-steam steam-one" /><span className="cup-steam steam-two" />
-      <span className="cup-emoji">☕</span>
-    </span>
-  );
+  return <span className={small ? "brand-cup brand-cup-small" : "brand-cup"} aria-hidden="true">
+    <img src={ASSET_ROOT + "coffee-cup.png"} alt="" className="brand-cup-image" />
+  </span>;
 }
 
 function SectionHeading({ eyebrow, title, accent, subtitle }: { eyebrow: string; title: string; accent: string; subtitle?: string }) {
@@ -125,6 +151,8 @@ function CoffeeButton({ children = "CLICK FOR COFFEE", onClick, href = "#contact
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedDrink, setSelectedDrink] = useState("Coffee");
   const [filter, setFilter] = useState<Filter>("All services");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [activeExample, setActiveExample] = useState<number | null>(null);
@@ -135,6 +163,12 @@ export default function HomePage() {
   const enquiryRef = useRef<HTMLDivElement>(null);
 
   const shownServices = filter === "All services" ? services : services.filter((s) => s.category === filter);
+  useEffect(() => {
+    const syncHeader = () => setIsScrolled(window.scrollY > 36);
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, { passive: true });
+    return () => window.removeEventListener("scroll", syncHeader);
+  }, []);
 
   useEffect(() => {
     const closeOnEscape = (e: KeyboardEvent) => {
@@ -197,7 +231,7 @@ export default function HomePage() {
   return (
     <>
       <div className="demo-ribbon"><Sparkles size={13} /> Design concept • Inspired by Advertising & More • Not an official booking website</div>
-      <header className="site-header">
+      <header className={isScrolled ? "site-header is-scrolled" : "site-header"}>
         <div className="nav-inner wrap">
           <a className="site-logo" href="#home" onClick={() => setMenuOpen(false)} aria-label="Advertising & More concept home">
             <span className="logo-mark"><BrandCup small /></span>
@@ -230,10 +264,10 @@ export default function HomePage() {
             </div>
             <div className="hero-art">
               <div className="hero-image-wrap">
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1500&q=90" alt="Warm, elegant celebration table setting under soft lights" />
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1500&q=90" alt="Colourful balloons at a joyful party" />
                 <span className="hero-image-vignette" />
               </div>
-              <div className="hero-photo-small"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=580&q=85" alt="Festive balloons" /></div>
+              <div className="hero-photo-small"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=580&q=85" alt="Decorated celebration venue" /></div>
               <span className="scribble-label">Let&apos;s make<br />it magical! <Heart size={16} /></span>
               <div className="hero-party-tag"><PartyPopper size={17} /> Your moment. Our imagination.</div>
               <div className="confetti confetti-1" /><div className="confetti confetti-2" /><div className="confetti confetti-3" />
