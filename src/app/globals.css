@@ -777,3 +777,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
  .offering-number{font-size:19px;min-width:29px}
  .offering-copy small{font-size:10px}
 }
+
+/* Category chips now jump to sections instead of hiding the other 90 services. */
+.service-group-panel{scroll-margin-top:110px}
+.services-section{scroll-margin-top:86px}
+.services-section .service-filters .filter-chip{transition:background-color .2s,color .2s,border-color .2s,transform .2s}
