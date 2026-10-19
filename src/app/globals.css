@@ -397,3 +397,159 @@ img{display:block;width:100%;height:100%;object-fit:cover}
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
  .marquee-track{animation:none}
 }
+
+
+/* 2026 contest refinement: faithful Advertising & More brand details */
+.site-header{background:rgba(248,238,223,.96);color:var(--navy);box-shadow:none;transition:background-color .48s ease,color .48s ease,box-shadow .48s ease;backdrop-filter:blur(14px)}
+.site-header.is-scrolled{background:#074aa7;color:#fff;box-shadow:0 9px 28px rgba(8,46,104,.17)}
+.site-header .desktop-nav a:after{background:var(--gold)}
+.site-header.is-scrolled .desktop-nav a:after{background:var(--yellow)}
+.site-header .menu-button{color:var(--navy);border-color:#d6c6ad}
+.site-header.is-scrolled .menu-button{color:#fff;border-color:rgba(255,255,255,.3)}
+.site-header .site-logo{transition:color .48s}
+.site-header .nav-coffee{color:#122445}
+.logo-mark{box-shadow:0 4px 12px rgba(20,39,68,.07)}
+.brand-cup{width:88px;height:76px;overflow:visible}
+.brand-cup-small{width:48px;height:44px}
+.brand-cup-image{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 3px 2px rgba(75,43,8,.18))}
+.logo-mark .brand-cup-small{width:35px;height:35px}
+.coffee-btn .brand-cup{width:61px;height:56px;margin-top:-12px;margin-bottom:-3px;margin-left:-4px;margin-right:-1px;flex-shrink:0}
+.coffee-btn{min-height:52px;overflow:visible;padding-left:10px}
+.coffee-btn .brand-cup-image,.contact-coffee .brand-cup-image,.footer-cup .brand-cup-image,.statement-sticker .brand-cup-image{transform-origin:50% 73%;animation:cupSway 3.5s ease-in-out infinite}
+.coffee-btn:hover .brand-cup-image{animation:cupSwayEnergetic .52s ease-in-out infinite}
+.nav-coffee .brand-cup{width:66px;height:58px;margin-top:-14px;margin-bottom:-3px}
+.nav-coffee{padding-left:8px}
+.contact-coffee .brand-cup{width:116px;height:108px}
+.footer-cup .brand-cup{width:92px;height:87px}
+.statement-sticker .brand-cup{width:73px;height:59px}
+@keyframes cupSway{0%,18%,50%,100%{transform:rotate(0)}23%{transform:rotate(-6deg)}29%{transform:rotate(5deg)}35%{transform:rotate(-3deg)}41%{transform:rotate(2deg)}}
+@keyframes cupSwayEnergetic{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+
+.hero-image-wrap{border:3px solid rgba(185,131,47,.65);box-shadow:0 0 0 7px rgba(246,217,167,.43),0 27px 53px rgba(74,56,32,.17)}
+.hero-photo-small{border:4px solid #e7bc71;box-shadow:0 12px 27px rgba(72,52,30,.19)}
+.hero-image-vignette{background:linear-gradient(0deg,rgba(23,33,49,.15),transparent 52%)}
+
+.brand-strip{padding:16px 0 17px;background:#fff;overflow:hidden}
+.strip-topline{display:flex;align-items:center;justify-content:center;gap:15px;color:#6a7d99;margin-bottom:13px}
+.strip-topline span{width:24px;height:1px;background:#c39839;display:inline-block}
+.marquee-window{height:76px;display:flex;align-items:center;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);margin-bottom:4px}
+.marquee-track{display:flex;align-items:center;width:max-content;animation:marquee 45s linear infinite;will-change:transform}
+.marquee-reverse{animation-direction:reverse;animation-duration:51s}
+.marquee-paused{animation-play-state:paused}
+.marquee-set{display:flex;align-items:center;gap:37px;flex:0 0 auto;padding-left:0;padding-right:37px}
+.marquee-logo{display:grid;place-items:center;flex:0 0 125px;width:125px;height:72px;filter:none;letter-spacing:normal}
+.marquee-logo img{max-width:120px;max-height:62px;width:100%;height:100%;object-fit:contain;filter:none;opacity:.97}
+.brand-caption{margin:9px 18px 0;font-size:9px}
+.stats-section{padding:32px 0 24px;background:linear-gradient(180deg,#fbf1e2 0%,#f8eedf 100%)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.stat-item{display:flex;align-items:center;justify-content:center;gap:11px;min-width:0;position:relative}
+.stat-item:not(:last-child):after{content:"";position:absolute;right:0;top:16px;height:43px;width:1px;background:#e6cfa5}
+.stat-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#a66d0e;color:#fff;flex-shrink:0}
+.stat-text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.stat-number{font-family:'Playfair Display',Georgia,serif;font-size:43px;line-height:1.07;font-weight:800;letter-spacing:-1.1px;color:#aa7016;white-space:nowrap}
+.stat-text>span:last-child{font-size:11px;font-weight:800;line-height:1.4}
+.stat-attribution{text-align:center;color:#9f937f;font-size:9px;margin:23px 15px 0}
+.services-section{padding-top:66px}
+.services-grid{gap:15px}
+.service-card{align-items:center;justify-content:flex-start;text-align:center;min-height:252px;border-radius:20px;padding:23px 19px;background:#fff;border:1px solid #f2e7d8;box-shadow:none}
+.service-icon{margin:0 auto 17px;width:65px;height:63px;background:transparent!important;color:#101215}
+.service-icon svg{width:39px;height:39px;stroke-width:2}
+.service-category{font-size:9px;color:#a47932}
+.service-card strong{font-size:16px;line-height:1.25;max-width:205px;position:relative;padding-bottom:16px;margin-bottom:6px}
+.service-card strong:after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:42px;height:2px;background:#d4a027;border-radius:8px}
+.service-description{font-size:11px;line-height:1.6}
+.service-link{margin-top:12px}
+.service-card:hover{border-color:#e4c89a;box-shadow:0 16px 32px rgba(64,54,37,.09)}
+.section-heading h2 em{position:relative}
+.section-heading h2 em:after{content:"";position:absolute;bottom:-4px;left:6%;width:88%;height:2px;background:#d7ab68;opacity:.48;border-radius:50%}
+.showcase-section{background:linear-gradient(135deg,#fffaf2 0%,#fff5dc 55%,#fff2d4 100%)}
+.process-signoff{padding:14px 0 0}
+.statement-section{background:#fffaf1}
+.statement-sticker{border-color:#ffefd0}
+.proof-layout{grid-template-columns:1.55fr .7fr;gap:20px}
+.proof-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.quote-card{min-height:222px;padding:22px 20px 19px;box-shadow:none;border:1px solid #efe5d7;border-radius:18px}
+.review-stars{text-align:center;font-size:21px;color:#f7b800;letter-spacing:3px;line-height:1.2;margin:0 0 17px}
+.quote-card>p{font-family:'DM Sans',Arial,sans-serif;font-weight:500;font-size:13px;line-height:1.7;color:#283957;flex:1;margin:0 0 17px}
+.quote-footer{display:flex;flex-direction:row;align-items:center;gap:12px;border-top:1px solid #eee1cf;padding-top:13px;min-height:61px}
+.quote-footer img{width:86px;height:41px;object-fit:contain;flex-shrink:0}
+.quote-footer>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.quote-footer strong{font-weight:800;font-size:11px}
+.quote-footer>div span{font-size:10px;line-height:1.4;color:var(--muted)}
+.team-feature{background:#fff;display:flex;flex-direction:column;align-items:center;text-align:center;padding:27px 23px;border:1px solid #efe1cb;border-radius:19px}
+.team-feature .section-eyebrow{font-size:10px}
+.team-portrait{width:125px;height:135px;object-fit:cover;object-position:center top;border-radius:18px;margin:20px 0 6px;box-shadow:0 6px 22px rgba(23,38,59,.1)}
+.team-feature h3{font-family:'Playfair Display',Georgia,serif;font-size:26px;line-height:1.35;margin:12px 0 18px}
+.team-feature h3 em{color:var(--gold);font-style:normal}
+.team-feature>strong{font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.3}
+.team-feature>p{color:#f2694e;font-size:11px;line-height:1.5;font-weight:800;margin:7px 0 17px}
+.team-feature>a{font-weight:800;font-size:11px;color:var(--blue);display:flex;align-items:center;gap:7px;margin-top:auto}
+.drinks-section{background:linear-gradient(180deg,#ffefd4,#f7e2b4 45%,#fff5e4);text-align:center}
+.drinks-grid{width:min(650px,100%);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:33px auto 20px}
+.drink-choice{position:relative;border-radius:20px;border:2px solid transparent;background:#fff;min-height:151px;padding:17px 12px 14px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;color:var(--navy);box-shadow:0 3px 8px rgba(74,58,24,.03);transition:transform .2s,border-color .2s,box-shadow .2s}
+.drink-choice:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(69,52,22,.11)}
+.drink-choice.selected{border-color:#e3ab2b;box-shadow:0 0 0 3px rgba(255,210,90,.22)}
+.drink-choice img{width:95px;height:89px;object-fit:contain}
+.drink-choice strong{font-size:12px;font-weight:800}
+.drink-tick{position:absolute;right:9px;top:9px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff}
+.drinks-caption{font-size:10px;line-height:1.6;color:#8d744a;margin:0 auto 23px}
+.drinks-section .coffee-btn{display:inline-flex;max-width:100%;white-space:normal}
+.contact-section{padding-top:88px}
+.contact-coffee{color:#a46d22}
+.contact-coffee .brand-cup{width:113px;height:100px}
+.site-footer .footer-cup{transform:rotate(-3deg)}
+
+@media(max-width:930px){
+ .site-header:not(.is-scrolled) .desktop-nav{background:#f8eedf;color:#142744;border-color:#ead3ae}
+ .site-header.is-scrolled .desktop-nav{background:var(--blue);color:white}
+ .stats-grid{gap:10px}
+ .stat-item{gap:7px}
+ .stat-number{font-size:35px}
+ .stat-text>span:last-child{font-size:10px}
+ .proof-layout{grid-template-columns:1fr}
+ .team-feature{flex-direction:row;flex-wrap:wrap;justify-content:center;column-gap:23px}
+ .team-feature .section-eyebrow{width:100%;justify-content:center}
+ .team-feature h3{flex:1;min-width:180px}
+ .team-feature>strong,.team-feature>p{width:100%}
+}
+@media(max-width:690px){
+ .brand-strip{padding:14px 0}
+ .marquee-window{height:64px}
+ .marquee-set{gap:25px;padding-right:25px}
+ .marquee-logo{width:104px;flex-basis:104px;height:58px}
+ .marquee-logo img{max-width:100px;max-height:53px}
+ .stats-section{padding:24px 0 18px}
+ .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:27px}
+ .stat-item:not(:last-child):after{display:none}
+ .stat-number{font-size:34px}
+ .services-section{padding-top:52px}
+ .service-card{padding:16px 13px;min-height:240px}
+ .service-icon{height:52px;margin-bottom:12px}
+ .service-icon svg{height:34px;width:34px}
+ .service-card strong{font-size:14px}
+ .service-description{font-size:10px}
+ .drinks-grid{gap:10px}
+ .drink-choice{min-height:135px;border-radius:14px}
+ .drink-choice img{width:75px;height:73px}
+ .drink-choice strong{font-size:10px}
+}
+@media(max-width:460px){
+ .nav-coffee{display:none}
+ .logo-mark .brand-cup-small{width:31px;height:31px}
+ .stats-grid{column-gap:10px;row-gap:21px}
+ .stat-icon{width:31px;height:31px}
+ .stat-number{font-size:28px}
+ .stat-text>span:last-child{font-size:9px}
+ .service-card{min-height:228px}
+ .proof-cards{grid-template-columns:1fr}
+ .team-feature{display:flex}
+ .drinks-grid{gap:8px}
+ .drink-choice{min-height:121px;padding:12px 5px}
+ .drink-choice img{width:64px;height:67px}
+ .drinks-section .coffee-btn{font-size:10px}
+ .nav-inner .site-logo{max-width:245px}
+}
+@media(prefers-reduced-motion:reduce){
+ .coffee-btn .brand-cup-image,.contact-coffee .brand-cup-image,.footer-cup .brand-cup-image,.statement-sticker .brand-cup-image{animation:none}
+ .marquee-reverse{animation:none}
+}
