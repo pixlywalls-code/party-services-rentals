@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { serviceGroups, allPartyServices } from "@/data/party-services";
+import { photoForService } from "@/data/service-images";
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, AudioLines, BadgeCheck,
   Building2, CalendarDays, Camera, Check, CheckCircle2, ChevronDown, Globe2,
@@ -402,6 +403,22 @@ export default function HomePage() {
                             aria-label={"Enquire about " + item.name}
                           >
                             <span className="offering-number">{String(item.number).padStart(2, "0")}</span>
+                            <img
+                              className="offering-photo"
+                              src={photoForService(item.number)}
+                              loading="lazy"
+                              decoding="async"
+                              alt={"Stock photo illustrating " + item.name}
+                              onError={(event) => {
+                                const image = event.currentTarget;
+                                if (!image.dataset.fallback) {
+                                  image.dataset.fallback = "1";
+                                  image.src = group.image || "";
+                                } else {
+                                  image.style.opacity = "0";
+                                }
+                              }}
+                            />
                             <span className="offering-copy">
                               <strong>{item.name}</strong>
                               <small>{item.description}</small>
