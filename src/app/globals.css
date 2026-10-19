@@ -556,3 +556,40 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 
 /* Remove oversized edge doodles circled in feedback. Keep subtle branded gold details. */
 .hero::before,.hero::after{display:none!important}
+
+
+/* Coffee icon: unmistakable side-to-side animation in logo and CTA placements.
+   The logo icon was previously omitted from the animated-image selectors. */
+@keyframes coffeeSideShake {
+  0%,100% { transform:translateX(0) rotate(0deg); }
+  16% { transform:translateX(-4px) rotate(-7deg); }
+  34% { transform:translateX(4px) rotate(7deg); }
+  52% { transform:translateX(-3px) rotate(-5deg); }
+  70% { transform:translateX(3px) rotate(5deg); }
+  86% { transform:translateX(-1px) rotate(-2deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .site-logo .brand-cup-image,
+  .coffee-btn .brand-cup-image,
+  .contact-coffee .brand-cup-image,
+  .footer-cup .brand-cup-image,
+  .statement-sticker .brand-cup-image {
+    transform-origin:50% 78%;
+    animation:coffeeSideShake 2.25s ease-in-out infinite;
+    will-change:transform;
+  }
+  .coffee-btn:hover .brand-cup-image,
+  .site-logo:hover .brand-cup-image {
+    animation-duration:0.85s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-logo .brand-cup-image,
+  .coffee-btn .brand-cup-image,
+  .contact-coffee .brand-cup-image,
+  .footer-cup .brand-cup-image,
+  .statement-sticker .brand-cup-image {
+    animation:none !important;
+    transform:none !important;
+  }
+}
