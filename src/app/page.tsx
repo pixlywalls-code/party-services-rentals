@@ -153,8 +153,8 @@ export default function HomePage() {
   const enquiryRef = useRef<HTMLDivElement>(null);
 
   const normalizedQuery = serviceQuery.trim().toLocaleLowerCase();
+  // Category chips navigate to sections; only a typed search narrows the results.
   const shownGroups = serviceGroups
-    .filter((group) => filter === "All services" || group.title === filter)
     .map((group) => ({
       ...group,
       items: normalizedQuery
@@ -341,16 +341,27 @@ export default function HomePage() {
                 {serviceQuery && <button type="button" onClick={() => setServiceQuery("")} aria-label="Clear service search"><X size={17} /></button>}
               </label>
               <span className="services-result-count" aria-live="polite">
-                Showing <strong>{visibleServiceCount}</strong> of {allPartyServices.length}
+                {normalizedQuery ? (
+                  <><strong>{visibleServiceCount}</strong> matching services in {shownGroups.length} {shownGroups.length === 1 ? "category" : "categories"}</>
+                ) : (
+                  <>All <strong>{allPartyServices.length}</strong> services in <strong>{serviceGroups.length}</strong> categories</>
+                )}
               </span>
             </div>
-            <div className="service-filters" role="group" aria-label="Filter services by category">
+            <div className="service-filters" role="group" aria-label="Jump to service category">
               {categories.map((category, index) => (
                 <button
                   key={category}
                   type="button"
                   className={filter === category ? "filter-chip active" : "filter-chip"}
-                  onClick={() => setFilter(category)}
+                  onClick={() => {
+                    setFilter(category);
+                    setServiceQuery("");
+                    requestAnimationFrame(() => {
+                      document.getElementById(index === 0 ? "services" : serviceGroups[index - 1].id)
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    });
+                  }}
                   aria-pressed={filter === category}
                 >
                   {index === 0 ? "All 100 services" : <><span className="filter-number">{String(index).padStart(2,"0")}</span> {categoryShortNames[index-1]}</>}
@@ -362,7 +373,7 @@ export default function HomePage() {
                 {shownGroups.map((group) => {
                   const CategoryIcon = categoryIcons[group.number - 1];
                   return (
-                    <article className="service-group-panel" key={group.id}>
+                    <article className="service-group-panel" id={group.id} key={group.id}>
                       <div className="service-group-header">
                         <div className="service-group-copy">
                           <div className="service-group-kicker">
@@ -408,7 +419,7 @@ export default function HomePage() {
                 <Search size={28} />
                 <h3>No attractions match that search.</h3>
                 <p>Try another keyword or browse all categories.</p>
-                <button type="button" className="outline-btn" onClick={() => {setFilter("All services");setServiceQuery("");}}>Show all 100 services <ArrowRight size={17} /></button>
+                <button type="button" className="outline-btn" onClick={() => { setFilter("All services"); setServiceQuery(""); }}>Show all 100 services <ArrowRight size={17} /></button>
               </div>
             )}
             <div className="services-note"><Sparkles size={19} /><span>Looking for a one-of-a-kind party? <a href="#contact">Let's dream it up.</a> All options are from the supplied ideas brief; availability and pricing must be confirmed. Special attractions may require qualified operators, safety arrangements and venue approval.</span></div>
