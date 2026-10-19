@@ -16,6 +16,7 @@ type Service = { title: string; description: string; category: Category; icon: L
 type Enquiry = {
   name: string; phone: string; email: string; eventType: string;
   date: string; location: string; guests: string; budget: string; message: string;
+  linkedin: string; emailCompanyProfile: boolean; marketingUpdates: boolean;
 };
 
 const services: Service[] = [
@@ -122,6 +123,7 @@ const faqs = [
 const blankEnquiry: Enquiry = {
   name: "", phone: "", email: "", eventType: "", date: "",
   location: "", guests: "", budget: "", message: "",
+  linkedin: "", emailCompanyProfile: false, marketingUpdates: false,
 };
 
 function BrandCup({ small = false }: { small?: boolean }) {
@@ -193,7 +195,7 @@ export default function HomePage() {
     enquiryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function updateField(field: keyof Enquiry, value: string) {
+  function updateField(field: keyof Enquiry, value: string | boolean) {
     setEnquiry((prev) => ({ ...prev, [field]: value }));
     setPrepared(false);
   }
@@ -202,13 +204,16 @@ export default function HomePage() {
     "PARTY SERVICES & RENTALS — EVENT ENQUIRY",
     "Name: " + enquiry.name,
     "Phone: " + enquiry.phone,
-    "Email: " + enquiry.email,
+    "Work email: " + enquiry.email,
+    "LinkedIn URL: " + (enquiry.linkedin || "Not supplied"),
     "Event / service: " + (enquiry.eventType || "To be discussed"),
     "Date: " + (enquiry.date || "Flexible"),
     "Location: " + (enquiry.location || "To be confirmed"),
     "Guest count: " + (enquiry.guests || "To be confirmed"),
     "Budget: " + (enquiry.budget || "To be discussed"),
     "Details: " + (enquiry.message || "No additional details"),
+    "Requested company profile: " + (enquiry.emailCompanyProfile ? "Yes" : "No"),
+    "Marketing updates requested: " + (enquiry.marketingUpdates ? "Yes" : "No"),
   ].join("\n");
 
   function prepareEnquiry(e: FormEvent<HTMLFormElement>) {
@@ -447,44 +452,102 @@ export default function HomePage() {
             <CoffeeButton href="#contact">LET'S TALK OVER {selectedDrink.toUpperCase()}</CoffeeButton>
           </div>
         </section>
-        <section id="contact" ref={enquiryRef} className="contact-section section-pad">
-          <div className="wrap contact-outer">
-            <div className="contact-copy">
-              <span className="section-eyebrow section-eyebrow-left">— LET'S PLAN YOUR EVENT</span>
-              <h2>Let&apos;s plan something <em>amazing.</em></h2>
-              <p>Tell us about your occasion. We're ready to help you put the important details into one happy plan.</p>
-              <div className="contact-coffee"><BrandCup /><span>Great events start<br />with a great<br /><b>conversation!</b></span></div>
-              <div className="contact-location"><MapPin size={17} /> Inspired by the Kuala Lumpur-based Advertising &amp; More team.</div>
+        <section id="contact" ref={enquiryRef} className="contact-section contact-reference section-pad">
+          <div className="wrap">
+            <div className="reference-form-heading">
+              <span className="section-eyebrow">— THE DRINKS ARE ON US —</span>
+              <h2>The drinks are on <em>us.</em></h2>
+              <p>Have a party in mind? Tell us what you need, and let's start with a coffee.</p>
             </div>
-            <div className="contact-form-panel">
+            <div className="reference-form-card">
               {!prepared ? (
-                <form onSubmit={prepareEnquiry}>
-                  <h3>Your event, your way.</h3>
-                  <p className="form-intro">Prepare your request here, then send it through the official agency website.</p>
-                  <div className="form-grid">
-                    <label>Your full name <input required value={enquiry.name} onChange={(e) => updateField("name", e.target.value)} placeholder="Your name" maxLength={100} /></label>
-                    <label>Phone number <input required type="tel" value={enquiry.phone} onChange={(e) => updateField("phone", e.target.value)} placeholder="+60 ..." maxLength={30} /></label>
-                    <label>Email address <input required type="email" value={enquiry.email} onChange={(e) => updateField("email", e.target.value)} placeholder="you@example.com" maxLength={120} /></label>
-                    <label>Event / service <select required value={enquiry.eventType} onChange={(e) => updateField("eventType", e.target.value)}><option value="">Select your event type</option>{services.map((s) => <option key={s.title} value={s.title}>{s.title}</option>)}<option value="Something else">Something else</option></select></label>
-                    <label>Preferred date <input type="date" value={enquiry.date} onChange={(e) => updateField("date", e.target.value)} /></label>
-                    <label>Event location <input value={enquiry.location} onChange={(e) => updateField("location", e.target.value)} placeholder="e.g. Kuala Lumpur" maxLength={140} /></label>
-                    <label>Number of guests <input type="number" min="1" max="100000" value={enquiry.guests} onChange={(e) => updateField("guests", e.target.value)} placeholder="Approximate number" /></label>
-                    <label>Estimated budget <select value={enquiry.budget} onChange={(e) => updateField("budget", e.target.value)}><option value="">Select a budget</option><option value="Under RM 2,000">Under RM 2,000</option><option value="RM 2,000 – RM 5,000">RM 2,000 – RM 5,000</option><option value="RM 5,000 – RM 10,000">RM 5,000 – RM 10,000</option><option value="RM 10,000+">RM 10,000+</option><option value="Need guidance">Need guidance</option></select></label>
-                    <label className="form-wide">Tell us about your idea <textarea rows={4} value={enquiry.message} onChange={(e) => updateField("message", e.target.value)} placeholder="Tell us about your celebration and theme..." maxLength={2000} /></label>
+                <form onSubmit={prepareEnquiry} className="reference-form">
+                  <div className="reference-field">
+                    <label htmlFor="contact-name">Your Full Name</label>
+                    <input id="contact-name" name="name" required autoComplete="name"
+                      value={enquiry.name} onChange={(e) => updateField("name", e.target.value)}
+                      placeholder="Your full name" maxLength={100} />
                   </div>
-                  <button className="submit-button" type="submit"><BrandCup small /><span>PREPARE MY ENQUIRY</span><ArrowRight size={19} /></button>
-                  <p className="form-disclaimer"><ShieldCheck size={13} /> Prototype only. Your details aren't stored or sent to a server.</p>
+                  <div className="reference-field">
+                    <label htmlFor="contact-phone">Your Phone Number</label>
+                    <input id="contact-phone" name="phone" required type="tel" autoComplete="tel"
+                      value={enquiry.phone} onChange={(e) => updateField("phone", e.target.value)}
+                      placeholder="🇲🇾  +60 10 800 8989" maxLength={30} />
+                  </div>
+                  <div className="reference-field reference-field-with-note">
+                    <label htmlFor="contact-linkedin">Your LinkedIn URL
+                      <span className="reference-field-note">Optional — add your profile if relevant</span>
+                    </label>
+                    <input id="contact-linkedin" name="linkedin" type="url" inputMode="url"
+                      value={enquiry.linkedin} onChange={(e) => updateField("linkedin", e.target.value)}
+                      placeholder="https://www.linkedin.com/in/yourname" maxLength={400} />
+                  </div>
+                  <div className="reference-field reference-spaced-field">
+                    <label htmlFor="contact-service">Services You Require</label>
+                    <select id="contact-service" name="service" required
+                      value={enquiry.eventType} onChange={(e) => updateField("eventType", e.target.value)}>
+                      <option value="">Select the services you require</option>
+                      {services.map((service) => <option key={service.title} value={service.title}>{service.title}</option>)}
+                      <option value="Multiple services / custom package">Multiple services / custom package</option>
+                      <option value="Something else">Something else</option>
+                    </select>
+                  </div>
+                  <div className="reference-field reference-field-with-note">
+                    <label htmlFor="contact-email">Your Work Email Address
+                      <span className="reference-field-note">Please use your company email address if you have one.</span>
+                    </label>
+                    <input id="contact-email" name="email" required type="email" autoComplete="email"
+                      value={enquiry.email} onChange={(e) => updateField("email", e.target.value)}
+                      placeholder="yourname@company.com" maxLength={120} />
+                  </div>
+                  <div className="reference-field reference-spaced-field">
+                    <label htmlFor="contact-budget">Your Estimated Investment</label>
+                    <select id="contact-budget" name="budget" value={enquiry.budget}
+                      onChange={(e) => updateField("budget", e.target.value)}>
+                      <option value="">Select your estimated investment</option>
+                      <option value="Under RM 2,000">Under RM 2,000</option>
+                      <option value="RM 2,000 – RM 5,000">RM 2,000 – RM 5,000</option>
+                      <option value="RM 5,000 – RM 10,000">RM 5,000 – RM 10,000</option>
+                      <option value="RM 10,000+">RM 10,000+</option>
+                      <option value="Need guidance">Need guidance</option>
+                    </select>
+                  </div>
+                  <div className="reference-field reference-message-field">
+                    <label htmlFor="contact-message">Your Message To Us</label>
+                    <textarea id="contact-message" name="message" rows={3}
+                      value={enquiry.message} onChange={(e) => updateField("message", e.target.value)}
+                      placeholder="Message us & say hello. We would love to hear from you."
+                      maxLength={2000} />
+                  </div>
+                  <div className="reference-optins">
+                    <label><input type="checkbox" checked={enquiry.emailCompanyProfile}
+                      onChange={(e) => updateField("emailCompanyProfile", e.target.checked)} />
+                      <span>Email me Advertising &amp; More&apos;s Company Profile.</span></label>
+                    <label><input type="checkbox" checked={enquiry.marketingUpdates}
+                      onChange={(e) => updateField("marketingUpdates", e.target.checked)} />
+                      <span>Send me monthly advertising, marketing, website/mobile app design &amp; development tips.</span></label>
+                  </div>
+                  <button className="submit-button reference-coffee-button" type="submit">
+                    <BrandCup /><span>CLICK FOR COFFEE</span><ArrowRight size={19} />
+                  </button>
+                  <p className="form-disclaimer"><ShieldCheck size={13} />
+                    Demo form — creates a copyable enquiry. It does not send your details or sign you up for emails.
+                  </p>
                 </form>
               ) : (
-                <div className="prepared-panel" role="status">
+                <div className="prepared-panel reference-prepared" role="status">
                   <div className="prepared-icon"><CheckCircle2 size={38} /></div>
-                  <h3>Looking good, {enquiry.name.split(" ")[0]}!</h3>
-                  <p>Your enquiry is ready. Copy it and paste it into Advertising &amp; More&apos;s official contact form.</p>
+                  <h3>Your enquiry is ready, {enquiry.name.split(" ")[0]}!</h3>
+                  <p>Copy the text below and paste it into Advertising &amp; More&apos;s official enquiry form.</p>
                   <label htmlFor="enquiry-preview">Prepared enquiry</label>
-                  <textarea id="enquiry-preview" readOnly value={messageText} rows={10} />
+                  <textarea id="enquiry-preview" readOnly value={messageText} rows={11} />
                   <div className="prepared-actions">
-                    <button type="button" className="submit-button" onClick={copyEnquiry}>{copied ? <Check size={20} /> : <Copy size={20} />}{copied ? "COPIED!" : "COPY ENQUIRY"}<ArrowRight size={17} /></button>
-                    <a href="https://advertisingandmore.com/#contactform" target="_blank" rel="noopener noreferrer" className="outline-btn">Open official website <ArrowUpRight size={17} /></a>
+                    <button type="button" className="submit-button" onClick={copyEnquiry}>
+                      {copied ? <Check size={20} /> : <Copy size={20} />}
+                      {copied ? "COPIED!" : "COPY ENQUIRY"}<ArrowRight size={17} />
+                    </button>
+                    <a href="https://advertisingandmore.com/#contactform" target="_blank"
+                      rel="noopener noreferrer" className="outline-btn">Open official website <ArrowUpRight size={17} /></a>
                   </div>
                   <button type="button" className="edit-button" onClick={() => setPrepared(false)}>← Edit details</button>
                 </div>
