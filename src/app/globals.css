@@ -918,3 +918,64 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   }
   .services-section .offering-number{font-size:17px;min-width:24px}
 }
+
+
+/* Drinks only: gap-free, perpetual left-to-right carousel (2 identical sets).
+   Negative half-track offset to zero makes the artwork glide right; identical
+   sets keep the wrap-around invisible. Other site styling stays untouched. */
+.drinks-section .drinks-marquee {
+  width:min(100%, 1100px);
+  margin:30px auto 20px;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%);
+}
+.drinks-marquee-track {
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation:drinksTravelRight 37s linear infinite;
+}
+.drinks-marquee-set {
+  display:flex;
+  flex:0 0 auto;
+  gap:14px;
+  padding-right:14px;
+}
+.drinks-marquee-set .drink-choice {
+  flex:0 0 164px;
+  width:164px;
+  min-height:145px;
+  padding:14px 12px 12px;
+}
+.drinks-marquee-set .drink-choice img {
+  width:95px;
+  height:88px;
+}
+@keyframes drinksTravelRight {
+  from{transform:translateX(-50%)}
+  to{transform:translateX(0)}
+}
+.drinks-marquee:hover .drinks-marquee-track,
+.drinks-marquee:focus-within .drinks-marquee-track {
+  animation-play-state:paused;
+}
+@media(max-width:690px) {
+  .drinks-section .drinks-marquee{margin:24px auto 18px}
+  .drinks-marquee-set{gap:10px;padding-right:10px}
+  .drinks-marquee-set .drink-choice{flex-basis:137px;width:137px;min-height:128px}
+  .drinks-marquee-set .drink-choice img{width:78px;height:75px}
+}
+@media(max-width:460px) {
+  .drinks-marquee-set .drink-choice{flex-basis:124px;width:124px;min-height:120px}
+  .drinks-marquee-set .drink-choice img{width:70px;height:68px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .drinks-section .drinks-marquee {
+    overflow-x:auto;
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+  .drinks-marquee-track{animation:none;transform:none;will-change:auto}
+  .drinks-marquee-set[aria-hidden="true"]{display:none}
+}
