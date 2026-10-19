@@ -553,3 +553,6 @@ img{display:block;width:100%;height:100%;object-fit:cover}
  .coffee-btn .brand-cup-image,.contact-coffee .brand-cup-image,.footer-cup .brand-cup-image,.statement-sticker .brand-cup-image{animation:none}
  .marquee-reverse{animation:none}
 }
+
+/* Remove oversized edge doodles circled in feedback. Keep subtle branded gold details. */
+.hero::before,.hero::after{display:none!important}
