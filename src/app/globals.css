@@ -484,7 +484,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .team-feature>strong{font-family:'Playfair Display',Georgia,serif;font-size:15px;line-height:1.3}
 .team-feature>p{color:#f2694e;font-size:11px;line-height:1.5;font-weight:800;margin:7px 0 17px}
 .team-feature>a{font-weight:800;font-size:11px;color:var(--blue);display:flex;align-items:center;gap:7px;margin-top:auto}
-.drinks-section{background:linear-gradient(180deg,#ffefd4,#f7e2b4 45%,#fff5e4);text-align:center}
+.drinks-section{background:linear-gradient(180deg,#ffefd4,#f7e2b4 45%,#fff5e4);text-align:center;overflow-x:clip}
 .drinks-grid{width:min(650px,100%);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:33px auto 20px}
 .drink-choice{position:relative;border-radius:20px;border:2px solid transparent;background:#fff;min-height:151px;padding:17px 12px 14px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;color:var(--navy);box-shadow:0 3px 8px rgba(74,58,24,.03);transition:transform .2s,border-color .2s,box-shadow .2s}
 .drink-choice:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(69,52,22,.11)}
@@ -924,11 +924,16 @@ img{display:block;width:100%;height:100%;object-fit:cover}
    Negative half-track offset to zero makes the artwork glide right; identical
    sets keep the wrap-around invisible. Other site styling stays untouched. */
 .drinks-section .drinks-marquee {
-  width:min(100%, 1100px);
-  margin:30px auto 20px;
+  /* Make the moving drinks go all the way to both viewport edges. */
+  position:relative;
+  left:50%;
+  width:100vw;
+  max-width:100vw;
+  transform:translateX(-50%);
+  margin:30px 0 20px;
   overflow:hidden;
-  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%);
-  mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%);
+  -webkit-mask-image:none;
+  mask-image:none;
 }
 .drinks-marquee-track {
   display:flex;
@@ -943,8 +948,9 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   padding-right:14px;
 }
 .drinks-marquee-set .drink-choice {
-  flex:0 0 164px;
-  width:164px;
+  /* One 9-drink sequence must span at least the viewport: no edge gaps. */
+  flex:0 0 max(164px, calc((100vw - 126px) / 9 + 2px));
+  width:max(164px, calc((100vw - 126px) / 9 + 2px));
   min-height:145px;
   padding:14px 12px 12px;
 }
@@ -961,7 +967,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   animation-play-state:paused;
 }
 @media(max-width:690px) {
-  .drinks-section .drinks-marquee{margin:24px auto 18px}
+  .drinks-section .drinks-marquee{margin:24px 0 18px}
   .drinks-marquee-set{gap:10px;padding-right:10px}
   .drinks-marquee-set .drink-choice{flex-basis:137px;width:137px;min-height:128px}
   .drinks-marquee-set .drink-choice img{width:78px;height:75px}
