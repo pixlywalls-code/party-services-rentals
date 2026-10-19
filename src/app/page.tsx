@@ -276,18 +276,36 @@ export default function HomePage() {
           <a className="hero-scroll" href="#brandstrip"><span>SCROLL TO EXPLORE</span><ArrowDownRight size={17} /></a>
         </section>
 
-        <section id="brandstrip" className="brand-strip" aria-label="Brands featured on Advertising & More's existing website">
-          <div className="strip-topline">CREATIVE WORK FOR BRANDS BIG &amp; SMALL</div>
-          <div className="marquee-window" onMouseEnter={() => setMarqueePaused(true)} onMouseLeave={() => setMarqueePaused(false)}>
-            <div className={"marquee-track " + (marqueePaused ? "marquee-paused" : "")}>
-              {[0, 1].map((copy) => (
-                <div className="marquee-set" key={copy} aria-hidden={copy === 1}>
-                  {brandNames.map((name) => <span className={"marquee-logo logo-" + name.replace(/\W/g, "").toLowerCase()} key={name}>{name}</span>)}
-                </div>
-              ))}
+        <section id="brandstrip" className="brand-strip" aria-label="Brand images from Advertising & More's website">
+          <div className="strip-topline"><span />TRUSTED BY THESE BRANDS, &amp; MORE…<span /></div>
+          {[false, true].map((reverse, rowIndex) => (
+            <div className="marquee-window" key={rowIndex}
+              onMouseEnter={() => setMarqueePaused(true)} onMouseLeave={() => setMarqueePaused(false)}>
+              <div className={["marquee-track", reverse ? "marquee-reverse" : "marquee-forward", marqueePaused ? "marquee-paused" : ""].join(" ")}>
+                {[0, 1].map((copy) => (
+                  <div className="marquee-set" key={copy} aria-hidden={copy === 1}>
+                    {(reverse ? [...brandLogos].reverse() : brandLogos).map((brand) => (
+                      <span className="marquee-logo" key={brand.name} title={brand.name}>
+                        <img src={ASSET_ROOT + brand.src} alt={copy === 0 ? brand.name : ""} loading="lazy" />
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+          <p className="brand-caption">Brand imagery reflects the original agency website, not endorsements of new party services.</p>
+        </section>
+        <section className="stats-section" aria-label="Existing agency highlights">
+          <div className="wrap stats-grid">
+            {companyStats.map(({number,caption,icon:Icon}) => (
+              <div className="stat-item" key={caption}>
+                <span className="stat-icon"><Icon size={22} aria-hidden="true" /></span>
+                <span className="stat-text"><strong className="stat-number">{number}</strong><span>{caption}</span></span>
+              </div>
+            ))}
           </div>
-          <p className="brand-caption">Brand names reflect existing Advertising &amp; More website references, not specific party-rental endorsements.</p>
+          <p className="stat-attribution">Agency-wide figures shown on the existing Advertising &amp; More site.</p>
         </section>
 
         <section id="services" className="services-section section-pad">
@@ -366,18 +384,27 @@ export default function HomePage() {
 
         <section id="references" className="proof-section section-pad">
           <div className="wrap">
-            <SectionHeading eyebrow="THE COMPANY BEHIND THE IDEAS" title="Good company. " accent="Great energy." subtitle="Advertising & More has an existing creative and advertising track record. These excerpts concern its broader agency services, not party-rental outcomes." />
+            <SectionHeading eyebrow="KIND WORDS" title="What our " accent="clients say." subtitle="Feedback from Advertising & More's existing agency clients. These are summaries of broader agency reviews, not testimonials for the new rental service." />
             <div className="proof-layout">
               <div className="proof-cards">
-                <article className="quote-card"><span className="quote-mark">“</span><p>Impeccable professional ethics &amp; pleasant to work with.</p><div className="quote-footer"><strong>Bosch</strong><span>Existing agency testimonial</span><span className="quote-stars" aria-label="Five decorative stars">★★★★★</span></div></article>
-                <article className="quote-card"><span className="quote-mark">“</span><p>Genuine interest in our business &amp; an open, honest approach.</p><div className="quote-footer"><strong>Universal Music Group</strong><span>Existing agency testimonial</span><span className="quote-stars" aria-label="Five decorative stars">★★★★★</span></div></article>
+                {agencyReviews.map((review) => (
+                  <article className="quote-card" key={review.brand}>
+                    <div className="review-stars" aria-label="Five-star style used on the original website">★★★★★</div>
+                    <p>{review.note}</p>
+                    <div className="quote-footer">
+                      <img src={ASSET_ROOT + review.logo} alt={review.brand + " logo"} loading="lazy" />
+                      <div><strong>{review.brand}</strong><span>{review.position}</span></div>
+                    </div>
+                  </article>
+                ))}
               </div>
-              <aside className="proof-blue">
-                <span className="proof-doodle">✦</span>
-                <BrandCup />
-                <h3>Everything under one <em>happy</em> roof.</h3>
-                <p>One creative team. An imaginative approach. Plenty of reasons to celebrate.</p>
-                <a href="#contact" className="proof-cta">Let&apos;s have a coffee <ArrowRight size={18} /></a>
+              <aside className="team-feature">
+                <span className="section-eyebrow">THE PEOPLE</span>
+                <img src={ASSET_ROOT + "tanya.jpg"} alt="Tanya Hyacinth D’Silva-Fernandez" className="team-portrait" loading="lazy" />
+                <h3>Meet your <em>dream team.</em></h3>
+                <strong>Tanya Hyacinth D’Silva-Fernandez</strong>
+                <p>Chief Executive Officer · Advertising &amp; More</p>
+                <a href="https://advertisingandmore.com/#about" target="_blank" rel="noopener noreferrer">Get to know the agency <ArrowUpRight size={16} /></a>
               </aside>
             </div>
           </div>
@@ -402,12 +429,30 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section id="drinks" className="drinks-section section-pad">
+          <div className="wrap">
+            <SectionHeading eyebrow="THE DRINKS ARE ON US" title="Book a " accent="happy meeting." subtitle="A playful nod to the original site's coffee-first personality. Pick your preferred drink to make it yours." />
+            <div className="drinks-grid">
+              {drinks.map(({name,image}) => (
+                <button type="button" aria-pressed={selectedDrink === name} key={name}
+                  onClick={() => setSelectedDrink(name)}
+                  className={selectedDrink === name ? "drink-choice selected" : "drink-choice"}>
+                  <img src={ASSET_ROOT + image} alt="" loading="lazy" />
+                  <strong>{name}</strong>
+                  {selectedDrink === name && <span className="drink-tick"><Check size={12} /></span>}
+                </button>
+              ))}
+            </div>
+            <p className="drinks-caption">The drinks are on us — in spirit! Selecting a drink in this design demo doesn't place an order.</p>
+            <CoffeeButton href="#contact">LET'S TALK OVER {selectedDrink.toUpperCase()}</CoffeeButton>
+          </div>
+        </section>
         <section id="contact" ref={enquiryRef} className="contact-section section-pad">
           <div className="wrap contact-outer">
             <div className="contact-copy">
-              <span className="section-eyebrow section-eyebrow-left">— THE DRINKS ARE ON US</span>
+              <span className="section-eyebrow section-eyebrow-left">— LET'S PLAN YOUR EVENT</span>
               <h2>Let&apos;s plan something <em>amazing.</em></h2>
-              <p>Tell us a little about your occasion. We&apos;ll help you put all the right details in one place.</p>
+              <p>Tell us about your occasion. We're ready to help you put the important details into one happy plan.</p>
               <div className="contact-coffee"><BrandCup /><span>Great events start<br />with a great<br /><b>conversation!</b></span></div>
               <div className="contact-location"><MapPin size={17} /> Inspired by the Kuala Lumpur-based Advertising &amp; More team.</div>
             </div>
@@ -415,7 +460,7 @@ export default function HomePage() {
               {!prepared ? (
                 <form onSubmit={prepareEnquiry}>
                   <h3>Your event, your way.</h3>
-                  <p className="form-intro">Use this concept planner to prepare your enquiry. Nothing is sent until you contact the company directly.</p>
+                  <p className="form-intro">Prepare your request here, then send it through the official agency website.</p>
                   <div className="form-grid">
                     <label>Your full name <input required value={enquiry.name} onChange={(e) => updateField("name", e.target.value)} placeholder="Your name" maxLength={100} /></label>
                     <label>Phone number <input required type="tel" value={enquiry.phone} onChange={(e) => updateField("phone", e.target.value)} placeholder="+60 ..." maxLength={30} /></label>
@@ -425,10 +470,10 @@ export default function HomePage() {
                     <label>Event location <input value={enquiry.location} onChange={(e) => updateField("location", e.target.value)} placeholder="e.g. Kuala Lumpur" maxLength={140} /></label>
                     <label>Number of guests <input type="number" min="1" max="100000" value={enquiry.guests} onChange={(e) => updateField("guests", e.target.value)} placeholder="Approximate number" /></label>
                     <label>Estimated budget <select value={enquiry.budget} onChange={(e) => updateField("budget", e.target.value)}><option value="">Select a budget</option><option value="Under RM 2,000">Under RM 2,000</option><option value="RM 2,000 – RM 5,000">RM 2,000 – RM 5,000</option><option value="RM 5,000 – RM 10,000">RM 5,000 – RM 10,000</option><option value="RM 10,000+">RM 10,000+</option><option value="Need guidance">Need guidance</option></select></label>
-                    <label className="form-wide">Tell us about your idea <textarea rows={4} value={enquiry.message} onChange={(e) => updateField("message", e.target.value)} placeholder="The theme, the occasion, the little details you're dreaming of..." maxLength={2000} /></label>
+                    <label className="form-wide">Tell us about your idea <textarea rows={4} value={enquiry.message} onChange={(e) => updateField("message", e.target.value)} placeholder="Tell us about your celebration and theme..." maxLength={2000} /></label>
                   </div>
                   <button className="submit-button" type="submit"><BrandCup small /><span>PREPARE MY ENQUIRY</span><ArrowRight size={19} /></button>
-                  <p className="form-disclaimer"><ShieldCheck size={13} /> This is a design prototype. No personal information is stored or submitted to a server.</p>
+                  <p className="form-disclaimer"><ShieldCheck size={13} /> Prototype only. Your details aren't stored or sent to a server.</p>
                 </form>
               ) : (
                 <div className="prepared-panel" role="status">
@@ -439,7 +484,7 @@ export default function HomePage() {
                   <textarea id="enquiry-preview" readOnly value={messageText} rows={10} />
                   <div className="prepared-actions">
                     <button type="button" className="submit-button" onClick={copyEnquiry}>{copied ? <Check size={20} /> : <Copy size={20} />}{copied ? "COPIED!" : "COPY ENQUIRY"}<ArrowRight size={17} /></button>
-                    <a href="https://advertisingandmore.com/#contact" target="_blank" rel="noopener noreferrer" className="outline-btn">Open official website <ArrowUpRight size={17} /></a>
+                    <a href="https://advertisingandmore.com/#contactform" target="_blank" rel="noopener noreferrer" className="outline-btn">Open official website <ArrowUpRight size={17} /></a>
                   </div>
                   <button type="button" className="edit-button" onClick={() => setPrepared(false)}>← Edit details</button>
                 </div>
@@ -449,7 +494,9 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="site-footer">
+      
+
+        <footer className="site-footer">
         <div className="wrap footer-top">
           <div className="footer-brand"><a href="#home" className="site-logo"><span className="logo-mark"><BrandCup small /></span><span>Advertising <strong>&amp; More</strong></span></a><p>Everything you need,<br />under one happy roof.</p><div className="footer-emphasis">CREATIVE. HUMAN. HAPPY. ✦</div></div>
           <div className="footer-col"><h4>EXPLORE</h4><a href="#services">Services</a><a href="#showcase">Inspiration</a><a href="#process">Our Process</a><a href="#faq">Good to Know</a></div>
