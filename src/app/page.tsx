@@ -1,47 +1,34 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { serviceGroups, allPartyServices } from "@/data/party-services";
 import {
   ArrowDownRight, ArrowRight, ArrowUpRight, AudioLines, BadgeCheck,
   Building2, CalendarDays, Camera, Check, CheckCircle2, ChevronDown, Globe2,
+  Gamepad2, Search, Ticket, Target,
   ChevronLeft, ChevronRight, Clock3, Coffee, Copy, Gift, Heart, Mail,
   MapPin, Menu, MicVocal, Package, PartyPopper, Phone, Palette, Send,
   ShieldCheck, Sparkles, Star, Tent, UsersRound, UtensilsCrossed, X,
   type LucideIcon,
 } from "lucide-react";
 
-type Category = "Party experiences" | "Rentals & equipment" | "Corporate events";
-type Filter = "All services" | Category;
-type Service = { title: string; description: string; category: Category; icon: LucideIcon };
+type Filter = "All services" | string;
 type Enquiry = {
   name: string; phone: string; email: string; eventType: string;
   date: string; location: string; guests: string; budget: string; message: string;
   linkedin: string; emailCompanyProfile: boolean; marketingUpdates: boolean;
 };
 
-const services: Service[] = [
-  { title: "Private Parties & Celebrations", description: "Personal milestones, birthdays and gatherings with their own personality.", category: "Party experiences", icon: PartyPopper },
-  { title: "Themed Event Styling", description: "A cohesive look, from the first impression to the final detail.", category: "Party experiences", icon: Palette },
-  { title: "Bouncy Castles & Inflatables", description: "A playful centerpiece for family days and younger guests.", category: "Rentals & equipment", icon: Gift },
-  { title: "Tables, Chairs & Furniture", description: "Flexible seating and essential event furniture for your setup.", category: "Rentals & equipment", icon: Package },
-  { title: "Canopies, Tents & Shelter", description: "Thoughtful outdoor coverage for sun, shade and changing weather.", category: "Rentals & equipment", icon: Tent },
-  { title: "Balloon Decor & Backdrops", description: "Photo-ready styling designed around your event theme.", category: "Party experiences", icon: Sparkles },
-  { title: "Photo Booth Experiences", description: "Interactive photo moments for guests to enjoy and remember.", category: "Party experiences", icon: Camera },
-  { title: "Sound, Lighting & Stage", description: "The technical essentials behind a memorable occasion.", category: "Rentals & equipment", icon: AudioLines },
-  { title: "Hosts, MCs & Entertainment", description: "Keep the energy moving and every guest engaged.", category: "Party experiences", icon: MicVocal },
-  { title: "Food Stations & Catering", description: "Event food experiences planned to suit the occasion.", category: "Party experiences", icon: UtensilsCrossed },
-  { title: "Family Days & Annual Dinners", description: "Bring your team together in a way that feels anything but ordinary.", category: "Corporate events", icon: UsersRound },
-  { title: "Product Launches & Roadshows", description: "Branded moments that turn attention into connection.", category: "Corporate events", icon: Building2 },
-  { title: "Company Team Building", description: "Shared experiences that help teams laugh, connect and collaborate.", category: "Corporate events", icon: Heart },
-  { title: "Experiential Activations", description: "Make your brand something people can experience, not just see.", category: "Corporate events", icon: Star },
-  { title: "Corporate Retreats", description: "Plan an escape that makes room for fresh thinking.", category: "Corporate events", icon: MapPin },
-  { title: "Games & Carnival Experiences", description: "Fun-filled activities and interactive moments for every age.", category: "Party experiences", icon: Gift },
+const categories: Filter[] = ["All services", ...serviceGroups.map((group) => group.title)];
+const categoryShortNames = [
+  "Giant games", "Carnival games", "Photo & video", "Performers",
+  "Music & nightlife", "Food & tasting", "Foyer attractions",
+  "Adrenaline & skill", "Pampering & novelty", "Big-ticket spectacles",
 ];
-
-const categories: Filter[] = [
-  "All services", "Party experiences", "Rentals & equipment", "Corporate events",
+const categoryIcons = [
+  Gamepad2, Ticket, Camera, MicVocal, AudioLines,
+  UtensilsCrossed, Sparkles, Target, Heart, PartyPopper,
 ];
-
 const ASSET_ROOT = "https://advertisingandmore.com/wp-content/uploads/2026/07/";
 const brandLogos = [
   {name:"P&G",src:"old-pg.png"},{name:"TalentCorp",src:"old-talent.png"},
@@ -156,6 +143,7 @@ export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedDrink, setSelectedDrink] = useState("Coffee");
   const [filter, setFilter] = useState<Filter>("All services");
+  const [serviceQuery, setServiceQuery] = useState("");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [activeExample, setActiveExample] = useState<number | null>(null);
   const [enquiry, setEnquiry] = useState<Enquiry>(blankEnquiry);
@@ -164,7 +152,21 @@ export default function HomePage() {
   const [marqueePaused, setMarqueePaused] = useState(false);
   const enquiryRef = useRef<HTMLDivElement>(null);
 
-  const shownServices = filter === "All services" ? services : services.filter((s) => s.category === filter);
+  const normalizedQuery = serviceQuery.trim().toLocaleLowerCase();
+  const shownGroups = serviceGroups
+    .filter((group) => filter === "All services" || group.title === filter)
+    .map((group) => ({
+      ...group,
+      items: normalizedQuery
+        ? group.items.filter((item) =>
+            [item.name, item.description, group.title].some((value) =>
+              value.toLocaleLowerCase().includes(normalizedQuery)
+            )
+          )
+        : group.items,
+    }))
+    .filter((group) => group.items.length > 0);
+  const visibleServiceCount = shownGroups.reduce((total, group) => total + group.items.length, 0);
   useEffect(() => {
     const syncHeader = () => setIsScrolled(window.scrollY > 36);
     syncHeader();
@@ -315,24 +317,101 @@ export default function HomePage() {
 
         <section id="services" className="services-section section-pad">
           <div className="wrap">
-            <SectionHeading eyebrow="THE POSSIBILITIES" title="Party Services " accent="& Rentals." subtitle="A world of experiences, essentials and extra-special touches. Mix and match what you love." />
-            <div className="service-filters" role="group" aria-label="Filter services">
-              {categories.map((category) => (
-                <button key={category} type="button" className={filter === category ? "filter-chip active" : "filter-chip"} onClick={() => setFilter(category)} aria-pressed={filter === category}>{category}</button>
-              ))}
+            <SectionHeading
+              eyebrow="THE POSSIBILITIES"
+              title="Party Services "
+              accent="& Rentals."
+              subtitle="An adult playground meets an unforgettable ballroom party. Explore every attraction from the client's 100-service brief — carefully organised, never crowded."
+            />
+            <div className="services-overview">
+              <div className="services-overview-number"><strong>100</strong><span>experiences to explore<br />across <b>10 categories</b></span></div>
+              <p>Games, live performers, immersive spaces, nightlife, tastings and extraordinary surprises — all in one happy place.</p>
             </div>
-            <div className="services-grid">
-              {shownServices.map(({ title, description, icon: Icon, category }) => (
-                <button className="service-card" key={title} type="button" onClick={() => chooseService(title)} aria-label={"Enquire about " + title}>
-                  <span className="service-icon"><Icon size={31} strokeWidth={1.65} aria-hidden="true" /></span>
-                  <span className="service-category">{category}</span>
-                  <strong>{title}</strong>
-                  <span className="service-description">{description}</span>
-                  <span className="service-link">Let's talk <ArrowUpRight size={15} /></span>
+            <div className="services-toolbar">
+              <label className="services-search" htmlFor="service-search">
+                <Search size={19} aria-hidden="true" />
+                <input
+                  id="service-search"
+                  type="search"
+                  value={serviceQuery}
+                  onChange={(event) => setServiceQuery(event.target.value)}
+                  placeholder="Find an experience... e.g. silent disco, racing, photo booth"
+                  autoComplete="off"
+                />
+                {serviceQuery && <button type="button" onClick={() => setServiceQuery("")} aria-label="Clear service search"><X size={17} /></button>}
+              </label>
+              <span className="services-result-count" aria-live="polite">
+                Showing <strong>{visibleServiceCount}</strong> of {allPartyServices.length}
+              </span>
+            </div>
+            <div className="service-filters" role="group" aria-label="Filter services by category">
+              {categories.map((category, index) => (
+                <button
+                  key={category}
+                  type="button"
+                  className={filter === category ? "filter-chip active" : "filter-chip"}
+                  onClick={() => setFilter(category)}
+                  aria-pressed={filter === category}
+                >
+                  {index === 0 ? "All 100 services" : <><span className="filter-number">{String(index).padStart(2,"0")}</span> {categoryShortNames[index-1]}</>}
                 </button>
               ))}
             </div>
-            <div className="services-note"><Sparkles size={18} /><span>Every celebration is different. Can&apos;t see your idea here? <a href="#contact">Tell us your big idea.</a></span></div>
+            {shownGroups.length ? (
+              <div className="service-groups">
+                {shownGroups.map((group) => {
+                  const CategoryIcon = categoryIcons[group.number - 1];
+                  return (
+                    <article className="service-group-panel" key={group.id}>
+                      <div className="service-group-header">
+                        <div className="service-group-copy">
+                          <div className="service-group-kicker">
+                            <span>CATEGORY {String(group.number).padStart(2,"0")}</span>
+                            <span>{group.items.length} EXPERIENCES</span>
+                          </div>
+                          <span className="service-group-icon"><CategoryIcon size={28} strokeWidth={1.8} aria-hidden="true" /></span>
+                          <h3>{group.title}</h3>
+                          <p>{group.intro}</p>
+                          <span className="service-group-tagline">{group.tagline} <Sparkles size={15} /></span>
+                        </div>
+                        <div className={group.image ? "service-group-art with-photo" : "service-group-art with-icon"}>
+                          {group.image
+                            ? <img src={group.image} alt={"Illustrative party inspiration for " + group.title} loading="lazy" />
+                            : <CategoryIcon size={83} strokeWidth={1.15} aria-hidden="true" />}
+                          <span>{group.image ? "EVENT INSPIRATION" : "MAKE IT MEMORABLE"}</span>
+                        </div>
+                      </div>
+                      <div className="service-offerings-grid">
+                        {group.items.map((item) => (
+                          <button
+                            type="button"
+                            className="service-offering"
+                            key={item.number}
+                            onClick={() => chooseService(item.name)}
+                            aria-label={"Enquire about " + item.name}
+                          >
+                            <span className="offering-number">{String(item.number).padStart(2, "0")}</span>
+                            <span className="offering-copy">
+                              <strong>{item.name}</strong>
+                              <small>{item.description}</small>
+                            </span>
+                            <ArrowUpRight className="offering-arrow" size={17} aria-hidden="true" />
+                          </button>
+                        ))}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="services-empty">
+                <Search size={28} />
+                <h3>No attractions match that search.</h3>
+                <p>Try another keyword or browse all categories.</p>
+                <button type="button" className="outline-btn" onClick={() => {setFilter("All services");setServiceQuery("");}}>Show all 100 services <ArrowRight size={17} /></button>
+              </div>
+            )}
+            <div className="services-note"><Sparkles size={19} /><span>Looking for a one-of-a-kind party? <a href="#contact">Let's dream it up.</a> All options are from the supplied ideas brief; availability and pricing must be confirmed. Special attractions may require qualified operators, safety arrangements and venue approval.</span></div>
           </div>
         </section>
 
@@ -487,7 +566,7 @@ export default function HomePage() {
                     <select id="contact-service" name="service" required
                       value={enquiry.eventType} onChange={(e) => updateField("eventType", e.target.value)}>
                       <option value="">Select the services you require</option>
-                      {services.map((service) => <option key={service.title} value={service.title}>{service.title}</option>)}
+                      {allPartyServices.map((service) => <option key={service.number} value={service.name}>{service.name}</option>)}
                       <option value="Multiple services / custom package">Multiple services / custom package</option>
                       <option value="Something else">Something else</option>
                     </select>
