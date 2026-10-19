@@ -782,3 +782,27 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .service-group-panel{scroll-margin-top:110px}
 .services-section{scroll-margin-top:86px}
 .services-section .service-filters .filter-chip{transition:background-color .2s,color .2s,border-color .2s,transform .2s}
+
+
+/* Real-photo image slots only. All existing colours, backgrounds, layout and motion remain unchanged. */
+.service-offering .offering-photo {
+  width:98px;
+  min-width:98px;
+  height:72px;
+  display:block;
+  flex:0 0 98px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:11px;
+  border:1px solid #ebdbbd;
+  background:#f7eddb;
+}
+@media(max-width:930px) {
+  .service-offering .offering-photo{width:78px;min-width:78px;flex-basis:78px;height:70px}
+}
+@media(max-width:690px) {
+  .service-offering .offering-photo{width:96px;min-width:96px;flex-basis:96px;height:70px}
+}
+@media(max-width:460px) {
+  .service-offering .offering-photo{width:78px;min-width:78px;flex-basis:78px;height:64px}
+}
