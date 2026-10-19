@@ -647,3 +647,133 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 @media(prefers-reduced-motion:reduce){
  .contact-reference .reference-coffee-button .brand-cup-image{animation:none!important}
 }
+
+
+/* Complete 100-service catalogue — 10 original categories, four illustrative photos */
+.services-overview{
+  display:flex;justify-content:space-between;align-items:center;gap:28px;
+  background:linear-gradient(115deg,#09468f,#1255aa);
+  border-radius:22px;color:#fff;padding:20px 29px;
+  margin:5px 0 29px;box-shadow:0 15px 27px rgba(13,67,139,.12)
+}
+.services-overview-number{display:flex;align-items:center;gap:18px;flex:0 0 auto}
+.services-overview-number>strong{
+  font:800 60px/.95 'Playfair Display',Georgia,serif;color:#ffd33d;letter-spacing:-2px
+}
+.services-overview-number>span{font-size:13px;line-height:1.7;color:#eff7ff;font-weight:600}
+.services-overview-number b{color:#ffd944}
+.services-overview>p{font-size:12px;line-height:1.75;max-width:380px;margin:0;color:#d6e9ff}
+.services-toolbar{display:flex;align-items:center;gap:20px;justify-content:space-between;margin:0 0 16px}
+.services-search{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border:1px solid #e5d4b8;border-radius:14px;
+  min-height:54px;padding:0 17px;color:#a47729;max-width:715px;
+  flex:1;box-shadow:0 3px 11px rgba(76,58,27,.035);
+}
+.services-search input{flex:1;min-width:0;background:transparent;border:0;outline:0;
+  color:var(--navy);font-size:13px;font-weight:500;height:52px}
+.services-search input::placeholder{color:#9faabd}
+.services-search:focus-within{border-color:#cca052;box-shadow:0 0 0 3px #f1e3c9}
+.services-search>button{background:#f7ecdb;border:0;border-radius:50%;height:26px;width:26px;
+  display:grid;place-items:center;color:#916829;padding:0}
+.services-result-count{font-size:12px;color:#6c7b94;white-space:nowrap;font-weight:600}
+.services-result-count strong{color:var(--blue);font-weight:800}
+.services-section .service-filters{justify-content:flex-start;flex-wrap:wrap;gap:8px;margin:0 0 27px}
+.services-section .filter-chip{padding:10px 13px;font-size:11px;white-space:nowrap;
+  background:rgba(255,255,255,.66)}
+.services-section .filter-chip.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.filter-number{font-size:10px;margin-right:3px;opacity:.65;font-weight:800}
+.service-groups{display:grid;gap:24px}
+.service-group-panel{background:#fff;border:1px solid #ecddc8;overflow:hidden;
+  border-radius:25px;box-shadow:0 12px 29px rgba(96,67,30,.045)}
+.service-group-header{display:grid;grid-template-columns:1.26fr .74fr;gap:22px;
+  padding:26px 30px;min-height:226px;background:linear-gradient(115deg,#fffaf2,#fdf6e9)}
+.service-group-copy{display:flex;flex-direction:column;align-items:flex-start}
+.service-group-kicker{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  margin-bottom:15px;color:#bd815b;font-weight:800;letter-spacing:.14em;font-size:10px}
+.service-group-kicker span:nth-child(2){color:#6f83a0;letter-spacing:.08em}
+.service-group-icon{height:42px;width:42px;border-radius:13px;
+  display:grid;place-items:center;background:#f9e3b6;color:#aa771d;margin-bottom:9px}
+.service-group-copy h3{font-family:'Playfair Display',Georgia,serif;
+  font-size:clamp(22px,2.4vw,30px);line-height:1.23;letter-spacing:-.6px;margin:0 0 8px}
+.service-group-copy>p{font-size:12px;line-height:1.7;color:#73839a;margin:0 0 12px;max-width:520px}
+.service-group-tagline{margin-top:auto;display:flex;align-items:center;gap:8px;color:#ab771e;
+  font-weight:800;font-size:11px;letter-spacing:.015em}
+.service-group-tagline svg{color:#ceaf68}
+.service-group-art{position:relative;min-width:0;overflow:hidden;border-radius:17px;
+  min-height:179px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(140deg,#fff1cc,#d7eaf9);color:#a67b2b}
+.service-group-art.with-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:saturate(.89);transition:transform .5s}
+.service-group-panel:hover .service-group-art.with-photo img{transform:scale(1.04)}
+.service-group-art.with-photo:after{content:"";position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(6,24,44,.44),transparent 60%)}
+.service-group-art.with-icon{border:1px solid #efddbd}
+.service-group-art.with-icon svg{color:#b0823c;opacity:.8}
+.service-group-panel:nth-child(3n+2) .service-group-art.with-icon{
+  background:linear-gradient(135deg,#e2f0fc,#ffefdb)}
+.service-group-panel:nth-child(3n) .service-group-art.with-icon{
+  background:linear-gradient(135deg,#fff0e5,#f5d9e2)}
+.service-group-art>span{position:absolute;z-index:2;bottom:12px;left:13px;
+  font-size:9px;letter-spacing:.1em;font-weight:800;background:#fff3;
+  color:#fff;border:1px solid #fff5;border-radius:100px;padding:5px 10px}
+.service-group-art.with-icon>span{color:#8c692e;background:#fff9;border-color:#efdabb}
+.service-offerings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid #ecdfcd}
+.service-offering{width:100%;min-width:0;display:flex;align-items:flex-start;gap:13px;
+  padding:18px 20px 18px 25px;text-align:left;background:#fff;border:0;
+  border-bottom:1px solid #f0e9df;transition:background .18s,color .18s;
+  color:var(--navy);min-height:110px}
+.service-offering:nth-child(2n+1){border-right:1px solid #f0e9df}
+.service-offering:nth-last-child(-n+2){border-bottom:0}
+.service-offering:hover,.service-offering:focus-visible{background:#fff9ec}
+.offering-number{font:800 21px/1 'Playfair Display',Georgia,serif;
+  color:#c28b26;letter-spacing:-.4px;margin-top:1px;min-width:30px}
+.offering-copy{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.offering-copy strong{font-size:13px;line-height:1.35;font-weight:800}
+.offering-copy small{font-size:11px;line-height:1.55;color:#6f7e95;font-weight:400}
+.offering-arrow{flex:0 0 auto;margin-top:2px;color:#b78a3f;
+  opacity:.65;transition:transform .2s}
+.service-offering:hover .offering-arrow{transform:translate(3px,-3px);opacity:1;color:#08489e}
+.services-empty{display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:63px 20px;background:#fff;
+  border-radius:19px;border:1px solid #e6d6bd;gap:12px;color:var(--navy)}
+.services-empty>svg{color:#b78a30}
+.services-empty h3{font-family:'Playfair Display',Georgia,serif;margin:0;font-size:24px}
+.services-empty p{font-size:12px;color:#74839a;margin:0 0 8px}
+.services-note{margin-top:25px}
+@media(max-width:930px){
+ .services-overview{padding:20px 23px}
+ .service-group-header{grid-template-columns:1fr .58fr;padding:23px}
+ .service-offering{padding:17px 14px 17px 18px;gap:9px}
+ .offering-copy strong{font-size:12px}
+}
+@media(max-width:690px){
+ .services-overview{align-items:flex-start;flex-direction:column;gap:11px;padding:19px 21px}
+ .services-overview-number>strong{font-size:51px}
+ .services-overview>p{max-width:none}
+ .services-toolbar{flex-wrap:wrap;gap:8px;margin-bottom:15px}
+ .services-search{min-width:100%;max-width:none;min-height:50px}
+ .services-search input{height:49px;font-size:12px}
+ .services-result-count{margin-left:auto}
+ .services-section .service-filters{flex-wrap:nowrap;overflow-x:auto;
+  overscroll-behavior-x:contain;padding-bottom:10px;margin-bottom:19px}
+ .services-section .filter-chip{flex-shrink:0}
+ .service-group-header{grid-template-columns:1fr;gap:17px;padding:20px 20px 19px}
+ .service-group-art{min-height:175px;max-height:185px}
+ .service-group-copy h3{font-size:26px}
+ .service-group-panel{border-radius:20px}
+ .service-offerings-grid{grid-template-columns:1fr}
+ .service-offering,.service-offering:nth-child(2n+1){border-right:0;border-bottom:1px solid #f0e9df}
+ .service-offering:last-child{border-bottom:0}
+ .service-offering{min-height:0;padding:15px 17px;gap:13px}
+ .offering-number{min-width:34px}
+}
+@media(max-width:460px){
+ .service-group-header{padding:17px}
+ .service-group-kicker{font-size:9px}
+ .service-group-art{min-height:157px}
+ .service-offering{padding:15px 14px;gap:9px}
+ .offering-number{font-size:19px;min-width:29px}
+ .offering-copy small{font-size:10px}
+}
